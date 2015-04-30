@@ -9,6 +9,7 @@
 mapOptions);
 
 var infowindow = {};
+var allMarkers = [];
 
 	<% @pools.each do |pool| %>
 
@@ -25,7 +26,11 @@ var infowindow = {};
       title: "<%= pool[:name] %>"
   });
 
+  allMarkers.push(<%= pool[:name].tr('^A-Za-z0-9', '') %>);
+
   google.maps.event.addListener(<%= pool[:name].tr('^A-Za-z0-9', '') %>, 'click', function() {
+  		// allMarkers.forEach(function(marker){close(marker)}
+  			debugger
 	    infowindow.<%= pool[:name].tr('^A-Za-z0-9', '') %>.open(map, <%= pool[:name].tr('^A-Za-z0-9', '') %>);
 	  });
 
