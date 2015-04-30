@@ -1,20 +1,15 @@
 <script type="text/javascript">
-
 	var mapOptions = {
 	center: { lat: 40.7033127, lng: -73.979681},
 	zoom: 11
 	};
-
 	var map = new google.maps.Map(document.getElementById('map-canvas'),
 mapOptions);
+	var infowindow = new google.maps.InfoWindow();
 
-var infowindow = new google.maps.InfoWindow();
-
-
+	function dropPins(){
 	<% @pools.each do |pool| %>
-
 	var myLatlng = new google.maps.LatLng(<%= pool[:lat] %>, <%= pool[:lon] %>);
-
 	var <%= pool[:name].tr('^A-Za-z0-9', '') %> = new google.maps.Marker({
       position: myLatlng,
       map: map,
@@ -23,14 +18,16 @@ var infowindow = new google.maps.InfoWindow();
   });
 
   google.maps.event.addListener(<%= pool[:name].tr('^A-Za-z0-9', '') %>, 'click', function() {
-  		
   		infowindow.setContent('<%= pool[:name] %> <br> <%= pool[:location] %>');
-
 	    infowindow.open(map, this);
 	  });
 
   <% end %>
-  </script>
+}
+//Wait for page (map) to load before dropping pins
+window.onload = dropPins;
+
+ </script>
 
 
 
