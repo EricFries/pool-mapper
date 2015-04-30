@@ -1,1 +1,37 @@
-<h2>All NYC Pools</h2>
+<script type="text/javascript">
+
+	var mapOptions = {
+	center: { lat: 40.7033127, lng: -73.979681},
+	zoom: 11
+	};
+
+	var map = new google.maps.Map(document.getElementById('map-canvas'),
+mapOptions);
+
+
+	<% @pools.each do |pool| %>
+
+	 var infowindow = new google.maps.InfoWindow({
+      content: "test"
+  });
+
+
+	var myLatlng = new google.maps.LatLng(<%= pool[:lat] %>, <%= pool[:lon] %>);
+
+	var <%= pool[:name] %> = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+       animation: google.maps.Animation.DROP,
+      title: "<%= pool[:name] %>"
+  });
+  google.maps.event.addListener(marker, 'click', function() {
+	    infowindow.open(map,marker);
+	  });
+
+  <% end %>
+  </script>
+
+
+
+
+        
