@@ -8,14 +8,10 @@
 	var map = new google.maps.Map(document.getElementById('map-canvas'),
 mapOptions);
 
-var infowindow = {};
-var allMarkers = [];
+var infowindow = new google.maps.InfoWindow();
+
 
 	<% @pools.each do |pool| %>
-
-	 infowindow["<%= pool[:name].tr('^A-Za-z0-9', '') %>"] = new google.maps.InfoWindow({
-      content: "<%= pool[:name] %> <br> <%= pool[:location] %>"
-  });
 
 	var myLatlng = new google.maps.LatLng(<%= pool[:lat] %>, <%= pool[:lon] %>);
 
@@ -26,12 +22,11 @@ var allMarkers = [];
       title: "<%= pool[:name] %>"
   });
 
-  allMarkers.push(<%= pool[:name].tr('^A-Za-z0-9', '') %>);
-
   google.maps.event.addListener(<%= pool[:name].tr('^A-Za-z0-9', '') %>, 'click', function() {
-  		// allMarkers.forEach(function(marker){close(marker)}
-  			debugger
-	    infowindow.<%= pool[:name].tr('^A-Za-z0-9', '') %>.open(map, <%= pool[:name].tr('^A-Za-z0-9', '') %>);
+  		
+  		infowindow.setContent('<%= pool[:name] %> <br> <%= pool[:location] %>');
+
+	    infowindow.open(map, this);
 	  });
 
   <% end %>
