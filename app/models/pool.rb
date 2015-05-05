@@ -8,6 +8,7 @@ class Pool < ActiveRecord::Base
 
     #Collect facility attributes
     facilities.collect do |facility|
+          # binding.pry
       {:name => facility.css("Name").children.text, :location => facility.css("Location").children.text, :lat => facility.css("lat").children.text, :lon => facility.css("lon").children.text, :size => facility.css("Size").children.text}
     end
   end
