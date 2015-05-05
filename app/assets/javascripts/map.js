@@ -1,12 +1,9 @@
 $(document).ready(function(){
 
-
 	$.ajax({
 		url: "/",
 		dataType: "script"
 	});
-
-
 
 	$("#all-pools-link").click(function(e){
 		e.preventDefault();
